@@ -33,11 +33,12 @@ namespace Gameplay.Player.Logic
                 CheckAbilityJump();
             }
         }
-       
-
+        
         private void CheckAbilityJump()
         {
-            if (_rigidbody.velocity.y != 0 && _currentJumpCount >= _maxJumpCount)
+            //TODO: Это какой-то кринж, надо переделать
+            
+            if (_rigidbody.velocity.y != 0 || _currentJumpCount >= _maxJumpCount)
             {
                 return;
             }

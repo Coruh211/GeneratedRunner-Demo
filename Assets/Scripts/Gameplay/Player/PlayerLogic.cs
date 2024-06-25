@@ -18,7 +18,7 @@ namespace Gameplay.Player
         public void Initialize(LevelController levelController)
         {
             _levelController = levelController;
-            
+            _playerInfo.Rigidbody.isKinematic = false;
             InitializeLogic();
         }
 
