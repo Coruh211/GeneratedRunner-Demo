@@ -1,28 +1,25 @@
-﻿using UnityEngine;
+﻿using Sirenix.Utilities;
+using UnityEngine;
 
 namespace Gameplay.Player
 {
     public class PlayerInfo: MonoBehaviour
     {
-        public bool IsGrounded => playerLogic.IsGrounded();
-        
         public float MoveSpeed => moveSpeed;
         public float JumpForce => jumpForce;
-
         public Rigidbody Rigidbody => rigidbody;
-        
         public int MaxJumpCount => maxJumpCount;
+        public AnimatorController Animator => animator;
 
-        public LayerMask GroundLayer => groundLayer;
-
-        public float GroundCheckDistance => groundCheckDistance;
-
+        [Header("Global")]
+        [SerializeField] private PlayerLogic playerLogic;
+        [SerializeField] private AnimatorController animator;
+        [Header("Movement Settings")]
         [SerializeField] private float moveSpeed = 5f;
-        [SerializeField] private Rigidbody rigidbody;
+        [Header("Jump Settings")]
+        [SerializeField] private new Rigidbody rigidbody;
         [SerializeField] private float jumpForce = 5f;
         [SerializeField] private int maxJumpCount = 2;
-        [SerializeField] private PlayerLogic playerLogic;
-        [SerializeField] private float groundCheckDistance = 1.1f;
-        [SerializeField] private LayerMask groundLayer;
+        
     }
 }

@@ -5,15 +5,18 @@ using UnityEngine;
 
 namespace Gameplay.Player.Logic
 {
-    internal class InfinityForwardMovement: IPlayerLogic, IUpdateable
+    internal class InfinityForwardMovement: ILogic, IUpdateable
     {
-        private readonly float _speed;
         private readonly Rigidbody _targetRigidbody;
+        private readonly AnimatorController _animator;
 
-        public InfinityForwardMovement(PlayerInfo playerInfo)
+        private readonly float _speed;
+        
+        public InfinityForwardMovement(float speed, Rigidbody targetRigidbody, AnimatorController animator)
         {
-            _speed = playerInfo.MoveSpeed;
-            _targetRigidbody = playerInfo.Rigidbody;
+            _speed = speed;
+            _targetRigidbody = targetRigidbody;
+            _animator = animator;
         }
 
         public void Enter()
@@ -24,6 +27,7 @@ namespace Gameplay.Player.Logic
         public void OnUpdate()
         {
             _targetRigidbody.velocity = new Vector3(_targetRigidbody.velocity.x, _targetRigidbody.velocity.y, _speed);
+            _animator.SetMoveAnimation(true);
         }
 
         public void Exit()

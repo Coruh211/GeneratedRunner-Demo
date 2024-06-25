@@ -17,4 +17,12 @@ namespace Gameplay
             player.Initialize(this);
         }
     }
+    
+    public class LevelGenerator : MonoBehaviour
+    {
+        
+        public void GenerateLevel()
+        {
+        }
+    }
 }

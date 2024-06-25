@@ -10,7 +10,6 @@ namespace Gameplay.Player
         private InfinityForwardMovement _infinityForwardMovement;
         private JumpLogic _jumpLogic;
         
-
         private void Awake()
         {
             _playerInfo = GetComponent<PlayerInfo>();
@@ -25,8 +24,8 @@ namespace Gameplay.Player
 
         private void InitializeLogic()
         {
-            _infinityForwardMovement = new InfinityForwardMovement(_playerInfo);
-            _jumpLogic = new JumpLogic(_playerInfo);
+            _infinityForwardMovement = new InfinityForwardMovement(_playerInfo.MoveSpeed, _playerInfo.Rigidbody, _playerInfo.Animator);
+            _jumpLogic = new JumpLogic(_playerInfo.MaxJumpCount, _playerInfo.JumpForce, _playerInfo.Rigidbody, _playerInfo.Animator);
 
             EnterLogic();
         }
@@ -35,20 +34,6 @@ namespace Gameplay.Player
         {
             _infinityForwardMovement.Enter();
             _jumpLogic.Enter();
-        }
-        
-        public bool IsGrounded()
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position + new Vector3(0,0,1), Vector3.down, out hit, _playerInfo.GroundCheckDistance, _playerInfo.GroundLayer))
-            {
-                Debug.Log("Grounded");
-                return true;
-            }
-            
-            Debug.Log("Not Grounded");
-
-            return false;
         }
     }
 }

@@ -3,18 +3,22 @@ using ImportedTools.StarterPack.CoreLogic.Tools.Ticker;
 using ITools.StarterPack.CoreLogic.Tools.Ticker.Interfaces;
 using UnityEngine;
 
-namespace Gameplay.Player
+namespace Gameplay.Player.Logic
 {
-    internal class JumpLogic: IPlayerLogic, IUpdateable
+    internal class JumpLogic: ILogic, IUpdateable
     {
-        private readonly PlayerInfo _playerInfo;
-        private int _currentJumpCount;
+        private readonly Rigidbody _rigidbody;
+        private readonly AnimatorController _animator;
         private readonly int _maxJumpCount;
-
-        public JumpLogic(PlayerInfo playerInfo)
+        private readonly float _jumpForce;
+        private int _currentJumpCount;
+        
+        public JumpLogic(int maxJumpCount, float jumpForce, Rigidbody rigidbody, AnimatorController animator)
         {
-            _playerInfo = playerInfo;
-            _maxJumpCount = playerInfo.MaxJumpCount;
+            _maxJumpCount = maxJumpCount;
+            _jumpForce = jumpForce;
+            _rigidbody = rigidbody;
+            _animator = animator;
         }
 
         public void Enter()
@@ -29,26 +33,32 @@ namespace Gameplay.Player
                 CheckAbilityJump();
             }
         }
+       
 
         private void CheckAbilityJump()
         {
-            if (_playerInfo.IsGrounded == false)
+            if (_rigidbody.velocity.y != 0 && _currentJumpCount >= _maxJumpCount)
             {
                 return;
             }
             
-            _currentJumpCount = 0;
+            if (_rigidbody.velocity.y == 0)
+            {
+                _currentJumpCount = 0;
+            }
+            
             Jump();
         }
 
         private void Jump()
         {
-            if (_currentJumpCount < _maxJumpCount)
-            {
-                _playerInfo.Rigidbody.AddForce(Vector3.up * _playerInfo.JumpForce, ForceMode.Impulse);
-                _currentJumpCount++;
-            }
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, 0, _rigidbody.velocity.z);
+            _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            _currentJumpCount++;
+            
+            _animator.SetJumpAnimation();
         }
+        
 
         public void Exit()
         {
