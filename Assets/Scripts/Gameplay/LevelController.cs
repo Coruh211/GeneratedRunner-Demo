@@ -11,6 +11,9 @@ namespace Gameplay
     {
         [SerializeField] private PlayerLogic player;
         [SerializeField] private LevelGenerator levelGenerator;
+
+        
+
         private void Awake()
         {
             GameManager.OnLevelStarted += InitializePlayer;
@@ -20,6 +23,16 @@ namespace Gameplay
         private void InitializePlayer()
         {
             player.Initialize(this);
+        }
+
+        public void PlayerDie()
+        {
+            Debug.Log("PlayerDie");
+        }
+        
+        public Vector3 GetNextBlockFromPlayer()
+        {
+            return levelGenerator.FindNextBlock(player.transform.position);
         }
     }
 }

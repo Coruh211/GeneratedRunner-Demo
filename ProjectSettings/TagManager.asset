@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - ChangeDirection
+  - KillBox
+  - Missile
+  - DamageTrigger
   layers:
   - Default
   - TransparentFX

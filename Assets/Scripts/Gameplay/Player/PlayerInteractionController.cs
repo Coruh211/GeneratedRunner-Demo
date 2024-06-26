@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿using System;
+using Gameplay.BlockGeneratorLogic;
+using Gameplay.TrapLogic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Gameplay.Player
@@ -11,7 +14,26 @@ namespace Gameplay.Player
         {
             if (other.gameObject.CompareTag("Ground"))
             {
-                playerLogic.IsGrounded(true);
+                playerLogic.ChangeIsGroundedState(true);
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("ChangeDirection"))
+            {
+                DirectionSwitchTrap currentBlock = other.GetComponentInParent<DirectionSwitchTrap>();
+                playerLogic.ChangeDirection(currentBlock.CurrentContainer.transform, currentBlock.transform.position);
+            }
+            else if (other.CompareTag("DamageTrigger"))
+            {
+                int damage = other.GetComponent<DamageTrigger>().Damage * -1;
+                playerLogic.ChangeHp(damage, true);
+            }
+            else if (other.CompareTag("KillBox"))
+            {
+                int damage = other.GetComponent<DamageTrigger>().Damage * -1;
+                playerLogic.Fell(damage, true);
             }
         }
     }

@@ -28,19 +28,31 @@ MonoBehaviour:
     SpawnChance: 0
     AfterBlockSkip: 0
   Blocks:
-  - Prefab: {fileID: -3876811924966404038, guid: 3c92142bc070f164186d7f9dedd50430, type: 3}
-    SetSettings: 1
-    SpawnChance: 0.01
-    AfterBlockSkip: 3
-  - Prefab: {fileID: -2972611376806642897, guid: 966ea8363e4a17f42967a866a24eacd3, type: 3}
-    SetSettings: 1
-    SpawnChance: 0.01
-    AfterBlockSkip: 3
-  - Prefab: {fileID: 3355700196942228644, guid: c7f3544ffe9a1ac4e948c4c2a3d4fa3f, type: 3}
+  - Prefab: {fileID: 366385993125895004, guid: c7f3544ffe9a1ac4e948c4c2a3d4fa3f, type: 3}
     SetSettings: 1
     SpawnChance: 0.1
-    AfterBlockSkip: 4
-  - Prefab: {fileID: -146149819788897875, guid: 95ba0dad3aab1c147b3fc18801f24761, type: 3}
+    AfterBlockSkip: 3
+  - Prefab: {fileID: 5527397190420406116, guid: 95ba0dad3aab1c147b3fc18801f24761, type: 3}
+    SetSettings: 1
+    SpawnChance: 0.1
+    AfterBlockSkip: 3
+  - Prefab: {fileID: 3091739942469929210, guid: 3c92142bc070f164186d7f9dedd50430, type: 3}
     SetSettings: 1
     SpawnChance: 0.05
     AfterBlockSkip: 4
+  - Prefab: {fileID: 6830451175289869421, guid: 966ea8363e4a17f42967a866a24eacd3, type: 3}
+    SetSettings: 1
+    SpawnChance: 0.05
+    AfterBlockSkip: 4
+  - Prefab: {fileID: 2860170435226445473, guid: 905a33c88715f2f41ad4e84d6c3c0fc3, type: 3}
+    SetSettings: 1
+    SpawnChance: 0.1
+    AfterBlockSkip: 4
+  - Prefab: {fileID: 2216743057670988214, guid: 11fddce529119d244b00a055701a4ac3, type: 3}
+    SetSettings: 1
+    SpawnChance: 0.1
+    AfterBlockSkip: 4
+  - Prefab: {fileID: -7191916126346280660, guid: 4ba6f85df6e013c4a83dc1b8b6d019e3, type: 3}
+    SetSettings: 1
+    SpawnChance: 0.7
+    AfterBlockSkip: 0

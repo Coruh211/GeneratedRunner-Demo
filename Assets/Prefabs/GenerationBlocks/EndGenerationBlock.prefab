@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockType: 0
-  blockTransform: {fileID: 5630159010235347519}
+  modelTransform: {fileID: 5630159010235347519}
   itsChangeDirection: 0
   targetDirection: 0
 --- !u!1 &1879629289552311738

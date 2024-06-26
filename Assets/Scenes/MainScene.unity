@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelLength: 200
+  findBlockDistance: 2
   generationBlocksHolder: {fileID: 11400000, guid: ae256a3b19100514ebe5c6b223ccb070, type: 2}
   blocksParent: {fileID: 1154194167}
   changeDirectionBlocksContainer: {fileID: 5575178238256420840, guid: 26f0808675c3a84489b9e455b230a25d, type: 3}
@@ -225,6 +226,7 @@ Transform:
   m_Children:
   - {fileID: 269440597}
   - {fileID: 963194228}
+  - {fileID: 613997276}
   m_Father: {fileID: 123578704}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &163655116
@@ -250,9 +252,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 114
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &163655117
 MonoBehaviour:
@@ -281,10 +283,12 @@ MonoBehaviour:
   playerLogic: {fileID: 163655117}
   animator: {fileID: 163655120}
   rigidbody: {fileID: 163655116}
-  moveSpeed: 4
+  defaultMoveSpeed: 5
   jumpLogicInfo:
     maxJumpCount: 2
     jumpForce: 5
+  maxHp: 3
+  removeHpParticle: {fileID: 613997277}
 --- !u!136 &163655119
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -429,6 +433,73 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1001 &613997275
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 163655115}
+    m_Modifications:
+    - target: {fileID: 1190165961247154, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_Name
+      value: GreenBloodExplosionRound2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+--- !u!4 &613997276 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4507530739493926, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+  m_PrefabInstance: {fileID: 613997275}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &613997277 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198778362999107248, guid: 6322d4c5b0062f64baba2e27ee0302c8, type: 3}
+  m_PrefabInstance: {fileID: 613997275}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Net.NetworkInformation;
 using Gameplay.BlockGeneratorLogic.Enums;
 using Gameplay.BlockGeneratorLogic.Info;
 using Lean.Pool;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Gameplay.BlockGeneratorLogic
@@ -10,6 +11,7 @@ namespace Gameplay.BlockGeneratorLogic
     public class LevelGenerator : MonoBehaviour
     {
         [SerializeField] private int levelLength = 20;
+        [SerializeField] private float findBlockDistance = 2f;
         [SerializeField] private GenerationBlocksHolderSo generationBlocksHolder;
         [SerializeField] private Transform blocksParent;
         [SerializeField] private GameObject changeDirectionBlocksContainer;
@@ -19,6 +21,7 @@ namespace Gameplay.BlockGeneratorLogic
         private List<GameObject> _containers = new List<GameObject>();
         private Transform _currentParent;
         
+        [Button("Debug Generate Level")]
         public void GenerateLevel()
         {
             SetDefaultState();
@@ -65,11 +68,12 @@ namespace Gameplay.BlockGeneratorLogic
             spawnedBlock.transform.localPosition = GetPosition(spawnedBlock);
             _activeBlocks.Add(spawnedBlock);
             _currentContainerBlocks.Add(spawnedBlock);
-            
-            if (spawnedBlock.ItsChangeDirection)
+
+            DirectionSwitchTrap directionSwitchTrap = spawnedBlock as DirectionSwitchTrap;
+            if (directionSwitchTrap != null)
             {
                 _currentContainerBlocks.Clear();
-                SpawnContainer(spawnedBlock);
+                SpawnContainer(directionSwitchTrap);
             }
         }
 
@@ -84,22 +88,45 @@ namespace Gameplay.BlockGeneratorLogic
             
             if(_currentContainerBlocks.Count == 0)
             {
-                position.z += _activeBlocks[^1].BlockTransform.localScale.z / 2 + spawnedBlock.BlockTransform.localScale.z / 2;
+                position.z += _activeBlocks[^1].ModelTransform.localScale.z / 2 + spawnedBlock.ModelTransform.localScale.z / 2;
                 return position;
             }
 
             position = _currentContainerBlocks[^1].transform.localPosition;
-            position.z += _currentContainerBlocks[^1].BlockTransform.localScale.z / 2 + spawnedBlock.BlockTransform.localScale.z / 2;
+            position.z += _currentContainerBlocks[^1].ModelTransform.localScale.z / 2 + spawnedBlock.ModelTransform.localScale.z / 2;
             return position;
         }
 
-        private void SpawnContainer(GeneratedBlock spawnedBlock)
+        private void SpawnContainer(DirectionSwitchTrap spawnedBlock)
         {
             GameObject container = LeanPool.Spawn(changeDirectionBlocksContainer, _currentParent);
             _currentParent = container.transform;
             container.transform.position = _activeBlocks[^1].transform.position;
             container.transform.localRotation = spawnedBlock.TargetDirection == Direction.Left ? Quaternion.Euler(0, -90, 0) : Quaternion.Euler(0, 90, 0);
             _containers.Add(container);
+            
+            spawnedBlock.SetContainer(container);
+        }
+
+        public Vector3 FindNextBlock(Vector3 targetPosition)
+        {
+            int index = FindCurrentBlock(targetPosition);
+
+            return _activeBlocks[index + 1].transform.position;
+        }
+
+        private int FindCurrentBlock(Vector3 targetPosition)
+        {
+            for (int i = _activeBlocks.Count - 1; i > 0; i--)
+            {
+                if (Vector3.Distance(targetPosition, _activeBlocks[i].transform.position) < findBlockDistance)
+                {
+                    return i;
+                }
+            }
+            
+            Debug.Log("I don't find block");
+            return 0;
         }
     }
 }

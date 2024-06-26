@@ -16,8 +16,6 @@ namespace Gameplay.BlockGeneratorLogic.Info
             }
         }
         
-        public GlobalBlockInfo DefaultBlockInfo => defaultBlockInfo;
-        
         public GlobalBlockInfo FinishBlockInfo
         {
             get
@@ -45,20 +43,26 @@ namespace Gameplay.BlockGeneratorLogic.Info
             }
             
             _skipsCount = 0;
-            
-            float randomValue = Random.value;
-            float currentChance = 0;
+            float total = 0;
+
             for (int i = 0; i < Blocks.Count; i++)
             {
-                currentChance += Blocks[i].SpawnChance;
-                if (randomValue <= currentChance)
+                total += Blocks[i].SpawnChance;
+            }
+
+            float randomPoint = Random.value * total;
+
+            for (int i= 0; i < Blocks.Count; i++) 
+            {
+                if (randomPoint < Blocks[i].SpawnChance) 
                 {
-                    _lastBlockInfo = Blocks[i];
                     return Blocks[i];
                 }
+                
+                randomPoint -= Blocks[i].SpawnChance;
             }
             
-            return defaultBlockInfo;
+            return Blocks[0];
         }
     }
 }
