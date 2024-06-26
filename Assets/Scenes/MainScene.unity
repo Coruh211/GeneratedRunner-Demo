@@ -184,9 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c03167ee94741bcb1f13787a5121202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelLength: 100
+  levelLength: 200
   generationBlocksHolder: {fileID: 11400000, guid: ae256a3b19100514ebe5c6b223ccb070, type: 2}
   blocksParent: {fileID: 1154194167}
+  changeDirectionBlocksContainer: {fileID: 5575178238256420840, guid: 26f0808675c3a84489b9e455b230a25d, type: 3}
 --- !u!1 &163655114
 GameObject:
   m_ObjectHideFlags: 0

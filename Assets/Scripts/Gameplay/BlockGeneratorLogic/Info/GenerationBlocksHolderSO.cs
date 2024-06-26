@@ -1,24 +1,47 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.BlockGeneratorLogic.Info
 {
     [CreateAssetMenu(menuName = "Generation/Create GenerationBlocksHolderSo", fileName = "GenerationBlocksHolderSo", order = 0)]
     public class GenerationBlocksHolderSo: ScriptableObject
     {
-        public GenerationBlock StartBlock;
-        public GenerationBlock FinishBlock;
-        public List<GenerationBlock> Blocks;
+        public GlobalBlockInfo StartBlockInfo
+        {
+            get
+            {
+                _lastBlockInfo = startBlockInfo;
+                return startBlockInfo;
+            }
+        }
         
-        private GenerationBlock _lastBlock;
+        public GlobalBlockInfo DefaultBlockInfo => defaultBlockInfo;
+        
+        public GlobalBlockInfo FinishBlockInfo
+        {
+            get
+            {
+                _lastBlockInfo = finishBlockInfo;
+                return finishBlockInfo;
+            }
+        }
+        
+        [SerializeField] private GlobalBlockInfo startBlockInfo;
+        [SerializeField] private GlobalBlockInfo defaultBlockInfo;
+        [SerializeField] private GlobalBlockInfo finishBlockInfo;
+        
+        [SerializeField] private List<GlobalBlockInfo> Blocks;
+        
+        private GlobalBlockInfo _lastBlockInfo;
         private int _skipsCount;
         
-        public GenerationBlock GetRandomBlock()
+        public GlobalBlockInfo GetRandomBlock()
         {
-            if(_lastBlock != null && _lastBlock.AfterBlockSkip != _skipsCount)
+            if(_lastBlockInfo != null && _lastBlockInfo.AfterBlockSkip != _skipsCount)
             {
                 _skipsCount++;
-                return GetDefaultBlock();
+                return defaultBlockInfo;
             }
             
             _skipsCount = 0;
@@ -30,14 +53,12 @@ namespace Gameplay.BlockGeneratorLogic.Info
                 currentChance += Blocks[i].SpawnChance;
                 if (randomValue <= currentChance)
                 {
-                    _lastBlock = Blocks[i];
+                    _lastBlockInfo = Blocks[i];
                     return Blocks[i];
                 }
             }
-            return null;
+            
+            return defaultBlockInfo;
         }
-
-        private GenerationBlock GetDefaultBlock() => 
-            Blocks.Find(block => block.BlockType == BlockType.Default);
     }
 }

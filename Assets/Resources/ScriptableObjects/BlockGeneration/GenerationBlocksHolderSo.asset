@@ -12,31 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ef51fc91e6b42d78bbfd852af4dd79d, type: 3}
   m_Name: GenerationBlocksHolderSo
   m_EditorClassIdentifier: 
-  StartBlock:
-    Prefab: {fileID: 1184827721918371106, guid: 558879402bf762840b5e29753977a2b4, type: 3}
-    BlockLength: 2.5
-    AfterBlockSkip: 0
-    BlockType: 0
+  startBlockInfo:
+    Prefab: {fileID: 6108227403953260466, guid: 159835d91cf99724098338ecde80818b, type: 3}
+    SetSettings: 1
     SpawnChance: 0
-  FinishBlock:
-    Prefab: {fileID: 1184827721918371106, guid: 8807cfed8b2b332459b4f46ef1677dd4, type: 3}
-    BlockLength: 2.5
-    AfterBlockSkip: 0
-    BlockType: 0
+    AfterBlockSkip: 4
+  defaultBlockInfo:
+    Prefab: {fileID: -7191916126346280660, guid: 4ba6f85df6e013c4a83dc1b8b6d019e3, type: 3}
+    SetSettings: 0
     SpawnChance: 0
+    AfterBlockSkip: 0
+  finishBlockInfo:
+    Prefab: {fileID: -637408587968845840, guid: 3045f09066bd9ab438adea9678d0c485, type: 3}
+    SetSettings: 0
+    SpawnChance: 0
+    AfterBlockSkip: 0
   Blocks:
-  - Prefab: {fileID: 1184827721918371106, guid: b4bcb7e547440ce43886b0a95c65810b, type: 3}
-    BlockLength: 2.5
-    AfterBlockSkip: 4
-    BlockType: 2
+  - Prefab: {fileID: -3876811924966404038, guid: 3c92142bc070f164186d7f9dedd50430, type: 3}
+    SetSettings: 1
+    SpawnChance: 0.01
+    AfterBlockSkip: 3
+  - Prefab: {fileID: -2972611376806642897, guid: 966ea8363e4a17f42967a866a24eacd3, type: 3}
+    SetSettings: 1
+    SpawnChance: 0.01
+    AfterBlockSkip: 3
+  - Prefab: {fileID: 3355700196942228644, guid: c7f3544ffe9a1ac4e948c4c2a3d4fa3f, type: 3}
+    SetSettings: 1
     SpawnChance: 0.05
-  - Prefab: {fileID: 1184827721918371106, guid: a4f0bf4a958df404cbf3bc0ad7404091, type: 3}
-    BlockLength: 2.5
     AfterBlockSkip: 4
-    BlockType: 2
+  - Prefab: {fileID: -146149819788897875, guid: 95ba0dad3aab1c147b3fc18801f24761, type: 3}
+    SetSettings: 1
     SpawnChance: 0.05
-  - Prefab: {fileID: 1184827721918371106, guid: c1730ea3858b44d4399260b06d10cfef, type: 3}
-    BlockLength: 2.5
-    AfterBlockSkip: 0
-    BlockType: 1
-    SpawnChance: 1
+    AfterBlockSkip: 4

@@ -1,7 +1,4 @@
-﻿using ITools.StarterPack.CoreLogic.Tools.Timer.Source;
-using UnityEngine;
-
-namespace UI
+﻿namespace UI
 {
     public class LoadWindow: UIWindow
     {
