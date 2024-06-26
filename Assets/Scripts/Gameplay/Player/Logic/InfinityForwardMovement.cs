@@ -7,15 +7,15 @@ namespace Gameplay.Player.Logic
 {
     internal class InfinityForwardMovement: ILogic, IUpdateable
     {
-        private readonly Rigidbody _targetRigidbody;
+        private readonly Transform _transform;
         private readonly AnimatorController _animator;
 
         private readonly float _speed;
         
-        public InfinityForwardMovement(float speed, Rigidbody targetRigidbody, AnimatorController animator)
+        public InfinityForwardMovement(float speed, Transform transform, AnimatorController animator)
         {
             _speed = speed;
-            _targetRigidbody = targetRigidbody;
+            _transform = transform;
             _animator = animator;
         }
 
@@ -26,7 +26,9 @@ namespace Gameplay.Player.Logic
 
         public void OnUpdate()
         {
-            _targetRigidbody.velocity = new Vector3(_targetRigidbody.velocity.x, _targetRigidbody.velocity.y, _speed);
+            var targetTransformPosition = _transform.transform.position;
+            targetTransformPosition.z += _speed * Time.deltaTime;
+            _transform.transform.position = targetTransformPosition;
             _animator.SetMoveAnimation(true);
         }
 

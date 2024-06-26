@@ -1,4 +1,5 @@
 ﻿using Gameplay.Player.Interfaces;
+using Gameplay.Player.SubPakage;
 using ImportedTools.StarterPack.CoreLogic.Tools.Ticker;
 using ITools.StarterPack.CoreLogic.Tools.Ticker.Interfaces;
 using UnityEngine;
@@ -12,13 +13,16 @@ namespace Gameplay.Player.Logic
         private readonly int _maxJumpCount;
         private readonly float _jumpForce;
         private int _currentJumpCount;
-        
-        public JumpLogic(int maxJumpCount, float jumpForce, Rigidbody rigidbody, AnimatorController animator)
+        private bool _isGrounded;
+
+
+        public JumpLogic(JumpLogicInfo jumpLogicInfo, Rigidbody rigidbody, AnimatorController animator)
         {
-            _maxJumpCount = maxJumpCount;
-            _jumpForce = jumpForce;
             _rigidbody = rigidbody;
             _animator = animator;
+
+            _maxJumpCount = jumpLogicInfo.MaxJumpCount;
+            _jumpForce = jumpLogicInfo.JumpForce;
         }
 
         public void Enter()
@@ -36,16 +40,14 @@ namespace Gameplay.Player.Logic
         
         private void CheckAbilityJump()
         {
-            //TODO: Это какой-то кринж, надо переделать
-            
-            if (_rigidbody.velocity.y != 0 || _currentJumpCount >= _maxJumpCount)
-            {
-                return;
-            }
-            
-            if (_rigidbody.velocity.y == 0)
+            if (_isGrounded)
             {
                 _currentJumpCount = 0;
+            }
+            
+            if (_currentJumpCount >= _maxJumpCount)
+            {
+                return;
             }
             
             Jump();
@@ -56,11 +58,16 @@ namespace Gameplay.Player.Logic
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, 0, _rigidbody.velocity.z);
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _currentJumpCount++;
+            _isGrounded = false;
             
             _animator.SetJumpAnimation();
         }
         
-
+        public void SetGrounded(bool value)
+        {
+            _isGrounded = value;
+        }
+        
         public void Exit()
         {
             Ticker.UnregisterUpdateable(this);

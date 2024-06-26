@@ -1,4 +1,5 @@
-﻿using Sirenix.Utilities;
+﻿using Gameplay.Player.SubPakage;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Gameplay.Player
@@ -6,20 +7,18 @@ namespace Gameplay.Player
     public class PlayerInfo: MonoBehaviour
     {
         public float MoveSpeed => moveSpeed;
-        public float JumpForce => jumpForce;
         public Rigidbody Rigidbody => rigidbody;
-        public int MaxJumpCount => maxJumpCount;
         public AnimatorController Animator => animator;
+        public JumpLogicInfo JumpLogicInfo => jumpLogicInfo;
 
         [Header("Global")]
         [SerializeField] private PlayerLogic playerLogic;
         [SerializeField] private AnimatorController animator;
+        [SerializeField] private new Rigidbody rigidbody;
         [Header("Movement Settings")]
         [SerializeField] private float moveSpeed = 5f;
-        [Header("Jump Settings")]
-        [SerializeField] private new Rigidbody rigidbody;
-        [SerializeField] private float jumpForce = 5f;
-        [SerializeField] private int maxJumpCount = 2;
-        
+
+        [Header("Jump Settings")] 
+        [SerializeField] private JumpLogicInfo jumpLogicInfo;
     }
 }

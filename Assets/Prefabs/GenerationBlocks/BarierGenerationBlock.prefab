@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6778390222477729059}
   - component: {fileID: 3355700196942228644}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BarierGenerationBlock
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,9 +62,9 @@ GameObject:
   - component: {fileID: 6566938602648115329}
   - component: {fileID: 7009385187970939713}
   - component: {fileID: 2778793382000997784}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,15 +165,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6b7381b65278648049dcc0ee075a7eb1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b7381b65278648049dcc0ee075a7eb1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b7381b65278648049dcc0ee075a7eb1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b7381b65278648049dcc0ee075a7eb1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b7381b65278648049dcc0ee075a7eb1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.12
+      value: 1.04
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b7381b65278648049dcc0ee075a7eb1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -218,6 +218,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b7381b65278648049dcc0ee075a7eb1, type: 3}
       propertyPath: m_Name
       value: barrier2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6b7381b65278648049dcc0ee075a7eb1, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

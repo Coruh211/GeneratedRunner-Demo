@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5481940554754317246}
   - component: {fileID: 6108227403953260466}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StartGenerationBlock
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 1886229168776387727}
   - component: {fileID: 7775162544205081652}
   - component: {fileID: 6719806943996502547}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,9 +163,9 @@ GameObject:
   - component: {fileID: 1746785562625877239}
   - component: {fileID: 4348267790149703236}
   - component: {fileID: 3084866317076562720}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 149334945212689660}
   - component: {fileID: 5030592444020127987}
   - component: {fileID: 2723294474839137836}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3962279175052278403}
   - component: {fileID: 8288659707421936328}
   - component: {fileID: 7271510448579975430}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,9 +115,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8888925187833017281}
   - component: {fileID: -7191916126346280660}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DefaultGenerationBlock
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

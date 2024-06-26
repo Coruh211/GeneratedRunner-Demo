@@ -1,4 +1,5 @@
-﻿  using Gameplay.Player.Logic;
+﻿  using System;
+  using Gameplay.Player.Logic;
   using UnityEngine;
 
 namespace Gameplay.Player
@@ -24,8 +25,8 @@ namespace Gameplay.Player
 
         private void InitializeLogic()
         {
-            _infinityForwardMovement = new InfinityForwardMovement(_playerInfo.MoveSpeed, _playerInfo.Rigidbody, _playerInfo.Animator);
-            _jumpLogic = new JumpLogic(_playerInfo.MaxJumpCount, _playerInfo.JumpForce, _playerInfo.Rigidbody, _playerInfo.Animator);
+            _infinityForwardMovement = new InfinityForwardMovement(_playerInfo.MoveSpeed, transform, _playerInfo.Animator);
+            _jumpLogic = new JumpLogic(_playerInfo.JumpLogicInfo, _playerInfo.Rigidbody, _playerInfo.Animator);
 
             EnterLogic();
         }
@@ -34,6 +35,11 @@ namespace Gameplay.Player
         {
             _infinityForwardMovement.Enter();
             _jumpLogic.Enter();
+        }
+        
+        public void IsGrounded(bool isGrounded)
+        {
+            _jumpLogic.SetGrounded(isGrounded);
         }
     }
 }
