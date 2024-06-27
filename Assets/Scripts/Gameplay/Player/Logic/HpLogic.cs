@@ -80,6 +80,7 @@ namespace Gameplay.Player.Logic
         public void Exit()
         {
             _timer?.Dispose();
+            _canTakeDamage = true;
         }
     }
 }

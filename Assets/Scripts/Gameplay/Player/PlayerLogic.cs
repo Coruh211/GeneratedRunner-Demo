@@ -74,11 +74,9 @@ namespace Gameplay.Player
             ExitLogic();
         }
         
-        public void EndGame()
-        {
+        public void EndGame() => 
             ExitLogic();
-        }
-        
+
         public void DamageAndMoveToNextBlock(int damage, bool playDamageParticle)
         {
             ChangeHp(damage, playDamageParticle);
@@ -93,16 +91,12 @@ namespace Gameplay.Player
             _infinityForwardMovement.ChangeSpeed(_playerInfo.MovementInfo.ReviveMoveSpeed, _playerInfo.MovementInfo.ReviveSpeedChangeTime, true);
         }
 
-        private void SetPosition(Vector3 position)
-        {
+        private void SetPosition(Vector3 position) => 
             transform.position = position;
-        }
 
-        public void ApplyBonus(Bonus bonus)
-        {
-           _activateBonusLogic.ApplyBonus(bonus);
-        }
-        
+        public void ApplyBonus(Bonus bonus) => 
+            _activateBonusLogic.ApplyBonus(bonus);
+
         private void ExitLogic()
         {
             _levelController.EndGame(!_isDie);
