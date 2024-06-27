@@ -52,3 +52,7 @@ MonoBehaviour:
     setSettings: 1
     spawnChance: 0.1
     afterBlockSkip: 3
+  - prefab: {fileID: 3678228823118574981, guid: 4ba6f85df6e013c4a83dc1b8b6d019e3, type: 3}
+    setSettings: 1
+    spawnChance: 0.3
+    afterBlockSkip: 0
