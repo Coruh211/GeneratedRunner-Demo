@@ -7,12 +7,7 @@ namespace UI
     {
         [SerializeField] private WindowType windowType;
         
-        public void OnEnable()
-        {
-            Initialize();
-        }
-
-        public void SetState(bool state, bool deactiveAllWindows = true, WindowType currentType = WindowType.Undefined)
+        public void ActivateWindow(bool deactiveAllWindows = true, WindowType currentType = WindowType.Undefined)
         {
             if (currentType != windowType)
             {
@@ -23,9 +18,7 @@ namespace UI
                 return;
             }
             
-            gameObject.SetActive(state);
+            gameObject.SetActive(true);
         }
-
-        protected virtual void Initialize() {}
     }
 }

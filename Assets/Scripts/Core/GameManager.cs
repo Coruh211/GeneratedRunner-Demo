@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using Gameplay;
+using Gameplay.BlockGeneratorLogic;
 using ImportedTools.StarterPack.CoreLogic.Tools;
+using UI;
 using UI.Enums;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,25 +18,34 @@ namespace Core
         [SerializeField] private int gameSceneIndex = 1;
 
         private UIController _uiController;
+        private bool _isWin;
         
         private void Awake()
         {
             _uiController = UIController.Instance;
             
-            LoadGameState(() =>
-            {
-                MainState();
-            });
+           LoadLevel();
+        }
+        
+        private void LoadLevel()
+        {
+            LoadGameState(MainState);
+        }
+        
+        public void RestartLevel()
+        {
+            LevelController.Instance.PrepareLevel();
+            _uiController.ActivateWindow(WindowType.MainMenuWindow);
         }
 
         private void MainState()
         {
-            _uiController.SetWindowState(WindowType.MainMenuWindow, true);
+            _uiController.ActivateWindow(WindowType.MainMenuWindow, true);
         }
 
         private void LoadGameState(Action onSceneLoaded = null)
         {
-            _uiController.SetWindowState(WindowType.LoadWindow, true);
+            _uiController.ActivateWindow(WindowType.LoadWindow);
             SceneManager.LoadScene(gameSceneIndex);
             SceneManager.sceneLoaded += (scene, mode) =>
             {
@@ -42,13 +55,26 @@ namespace Core
 
         public void StartLevel()
         {
-            _uiController.SetWindowState(WindowType.GameWindow, true);
+            _uiController.ActivateWindow(WindowType.GameWindow);
             OnLevelStarted?.Invoke();
         }
         
         public void EndLevel(bool isWin)
         {
             OnLevelEnded?.Invoke(isWin);
+            _isWin = isWin;
+            _uiController.ActivateWindow(isWin ? WindowType.EndGameWinWindow : WindowType.EndGameLoseWindow);
+        }
+
+        public List<GeneratedBlock> GetPassedBlocks()
+        {
+            return LevelController.Instance.GetPassedBlocks(_isWin);
+        }
+
+        public void RevivePlayer()
+        {
+            LevelController.Instance.RevivePlayer();
+            _uiController.ActivateWindow(WindowType.GameWindow);
         }
     }
 }

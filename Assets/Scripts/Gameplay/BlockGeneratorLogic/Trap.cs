@@ -6,8 +6,8 @@ namespace Gameplay.BlockGeneratorLogic
 {
     public class Trap : GeneratedBlock
     {
-        public TrapType TrapType => trapType;
-        
-        [SerializeField] private TrapType trapType;
+        public string TrapName => trapName;
+
+        [SerializeField] private string trapName;
     }
 }

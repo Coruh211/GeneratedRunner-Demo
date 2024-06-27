@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Net.NetworkInformation;
+﻿using System;
+using System.Collections.Generic;
 using Gameplay.BlockGeneratorLogic.Enums;
 using Gameplay.BlockGeneratorLogic.Info;
 using Lean.Pool;
@@ -12,31 +12,48 @@ namespace Gameplay.BlockGeneratorLogic
     {
         [SerializeField] private int levelLength = 20;
         [SerializeField] private float findBlockDistance = 2f;
-        [SerializeField] private GenerationBlocksHolderSo generationBlocksHolder;
         [SerializeField] private Transform blocksParent;
-        [SerializeField] private GameObject changeDirectionBlocksContainer;
         
         private List<GeneratedBlock> _activeBlocks = new List<GeneratedBlock>();
         private List<GeneratedBlock> _currentContainerBlocks = new List<GeneratedBlock>();
         private List<GameObject> _containers = new List<GameObject>();
+        private GenerationBlocksHolderSo _generationBlocksHolder;
+        private GameObject _changeDirectionBlocksContainer;
         private Transform _currentParent;
         
         [Button("Debug Generate Level")]
         public void GenerateLevel()
         {
-            SetDefaultState();
-
-            GlobalBlockInfo startBlockInfo = generationBlocksHolder.StartBlockInfo;
-            SpawnBlock(startBlockInfo);
-            
-            for (int i = 0; i < levelLength; i++)
+            LoadRecourses(() =>
             {
-                GlobalBlockInfo blockInfo = generationBlocksHolder.GetRandomBlock();
-                SpawnBlock(blockInfo);
+                SetDefaultState();
+
+                GlobalBlockInfo startBlockInfo = _generationBlocksHolder.StartBlockInfo;
+                SpawnBlock(startBlockInfo);
+            
+                for (int i = 0; i < levelLength; i++)
+                {
+                    GlobalBlockInfo blockInfo = _generationBlocksHolder.GetRandomBlock();
+                    SpawnBlock(blockInfo);
+                }
+            
+                GlobalBlockInfo endBlockInfo = _generationBlocksHolder.FinishBlockInfo;
+                SpawnBlock(endBlockInfo);
+            });
+        }
+
+        private void LoadRecourses(Action OnLoadComplete = null)
+        {
+            if (_generationBlocksHolder == null)
+            {
+                _generationBlocksHolder = Resources.Load<GenerationBlocksHolderSo>(ResourcesPathHolder.GenerationBlocksHolder);
+            }
+            if(_changeDirectionBlocksContainer == null)
+            {
+                _changeDirectionBlocksContainer = Resources.Load<GameObject>(ResourcesPathHolder.ChangeDirectionBlocksContainer);
             }
             
-            GlobalBlockInfo endBlockInfo = generationBlocksHolder.FinishBlockInfo;
-            SpawnBlock(endBlockInfo);
+            OnLoadComplete?.Invoke();
         }
 
         private void SetDefaultState()
@@ -69,11 +86,11 @@ namespace Gameplay.BlockGeneratorLogic
             _activeBlocks.Add(spawnedBlock);
             _currentContainerBlocks.Add(spawnedBlock);
 
-            DirectionSwitchTrap directionSwitchTrap = spawnedBlock as DirectionSwitchTrap;
-            if (directionSwitchTrap != null)
+            DirectionSwitchBlock directionSwitchBlock = spawnedBlock as DirectionSwitchBlock;
+            if (directionSwitchBlock != null)
             {
                 _currentContainerBlocks.Clear();
-                SpawnContainer(directionSwitchTrap);
+                SpawnContainer(directionSwitchBlock);
             }
         }
 
@@ -97,9 +114,9 @@ namespace Gameplay.BlockGeneratorLogic
             return position;
         }
 
-        private void SpawnContainer(DirectionSwitchTrap spawnedBlock)
+        private void SpawnContainer(DirectionSwitchBlock spawnedBlock)
         {
-            GameObject container = LeanPool.Spawn(changeDirectionBlocksContainer, _currentParent);
+            GameObject container = LeanPool.Spawn(_changeDirectionBlocksContainer, _currentParent);
             _currentParent = container.transform;
             container.transform.position = _activeBlocks[^1].transform.position;
             container.transform.localRotation = spawnedBlock.TargetDirection == Direction.Left ? Quaternion.Euler(0, -90, 0) : Quaternion.Euler(0, 90, 0);
@@ -127,6 +144,24 @@ namespace Gameplay.BlockGeneratorLogic
             
             Debug.Log("I don't find block");
             return 0;
+        }
+
+        public List<GeneratedBlock> GetPassedBlocks(Transform playerTransform, bool isWin)
+        {
+            if (isWin)
+            {
+                return _activeBlocks;
+            }
+            
+            List<GeneratedBlock> passedBlocks = new List<GeneratedBlock>();
+            int index = FindCurrentBlock(playerTransform.position);
+            
+            for (int i = 0; i < index; i++)
+            {
+                passedBlocks.Add(_activeBlocks[i]);
+            }
+
+            return passedBlocks;
         }
     }
 }

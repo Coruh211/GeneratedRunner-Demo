@@ -1,5 +1,6 @@
 ﻿using System;
 using Gameplay.BlockGeneratorLogic;
+using Gameplay.BonusLogic;
 using Gameplay.TrapLogic;
 using UnityEditor;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Gameplay.Player
         {
             if (other.CompareTag("ChangeDirection"))
             {
-                DirectionSwitchTrap currentBlock = other.GetComponentInParent<DirectionSwitchTrap>();
+                DirectionSwitchBlock currentBlock = other.GetComponentInParent<DirectionSwitchBlock>();
                 playerLogic.ChangeDirection(currentBlock.CurrentContainer.transform, currentBlock.transform.position);
             }
             else if (other.CompareTag("DamageTrigger"))
@@ -33,7 +34,16 @@ namespace Gameplay.Player
             else if (other.CompareTag("KillBox"))
             {
                 int damage = other.GetComponent<DamageTrigger>().Damage * -1;
-                playerLogic.Fell(damage, true);
+                playerLogic.DamageAndMoveToNextBlock(damage, true);
+            }
+            else if(other.CompareTag("Bonus"))
+            {
+                Bonus bonusType = other.GetComponent<Bonus>();
+                playerLogic.ApplyBonus(bonusType);
+            }
+            else if (other.CompareTag("Finish"))
+            {
+                playerLogic.EndGame();
             }
         }
     }

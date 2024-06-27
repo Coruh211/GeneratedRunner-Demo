@@ -13,13 +13,16 @@ namespace Gameplay.Player.Logic
         private readonly AnimatorController _animator;
         private readonly Rigidbody _rigidbody;
         private readonly float _defaultSpeed;
+        private readonly float _intervalTickSec = 0.1f;
         private float _speed;
         
         private IDisposable _interval;
-
-        public InfinityForwardMovement(float speed,Rigidbody rigidbody,Transform transform, AnimatorController animator)
+        private IDisposable _timer;
+        
+        public InfinityForwardMovement(MovementInfo movementInfo,Rigidbody rigidbody,Transform transform, AnimatorController animator)
         {
-            _speed = speed;
+            _speed = movementInfo.DefaultMoveSpeed;
+            _defaultSpeed = _speed;
             _transform = transform;
             _animator = animator;
             _rigidbody = rigidbody;
@@ -28,6 +31,7 @@ namespace Gameplay.Player.Logic
         public void Enter()
         {
             Ticker.RegisterUpdateable(this);
+            _speed = _defaultSpeed;
         }
 
         public void OnUpdate()
@@ -36,20 +40,41 @@ namespace Gameplay.Player.Logic
             _rigidbody.velocity = new Vector3(targetTransformPosition.x, _rigidbody.velocity.y, targetTransformPosition.z);
             _animator.SetMoveAnimation(true);
         }
-
-        public void Exit()
+        
+        public void ChangeSpeed(float speed, float time, bool smoothDecrease)
         {
-            Ticker.UnregisterUpdateable(this);
+            _speed = _defaultSpeed;
+            _speed = speed;
+            
+            _interval?.Dispose();
+            _timer?.Dispose();
+            
+            if (smoothDecrease)
+            {
+                StartInterval(time);
+            }
+            else
+            {
+                StartTimer(time);
+            }
         }
 
-        public void ChangeSpeed(float speed, float time)
+        private void StartTimer(float time)
         {
-            _speed = speed;
+            _interval?.Dispose();
+            _timer = Observable.Timer(TimeSpan.FromSeconds(time)).Subscribe(_ =>
+            {
+                _speed = _defaultSpeed;
+            });
+        }
+
+        private void StartInterval(float time)
+        {
             float currentTime = 0;
             _interval?.Dispose();
-            _interval = Observable.Interval(TimeSpan.FromSeconds(0.1f)).Subscribe(_ =>
+            _interval = Observable.Interval(TimeSpan.FromSeconds(_intervalTickSec)).Subscribe(_ =>
             {
-                currentTime += 0.1f;
+                currentTime += _intervalTickSec;
                 _speed = Mathf.Lerp(_speed, _defaultSpeed, currentTime / time);
                 
                 if (currentTime >= time)
@@ -58,6 +83,15 @@ namespace Gameplay.Player.Logic
                     _speed = _defaultSpeed;
                 }
             });
+        }
+        
+        public void Exit()
+        {
+            Ticker.UnregisterUpdateable(this);
+            _animator.SetMoveAnimation(false);
+            _timer?.Dispose();
+            _interval?.Dispose();
+            _speed = _defaultSpeed;
         }
     }
 }

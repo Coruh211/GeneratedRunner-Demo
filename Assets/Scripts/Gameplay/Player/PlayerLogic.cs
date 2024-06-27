@@ -1,8 +1,8 @@
-﻿using Gameplay.BlockGeneratorLogic;
-  using Gameplay.BlockGeneratorLogic.Enums;
-  using Gameplay.Player.Interfaces;
-  using Gameplay.Player.Logic;
-  using UnityEngine;
+﻿using System;
+using Gameplay.BonusLogic;
+using Gameplay.Player.Interfaces;
+using Gameplay.Player.Logic;
+using UnityEngine;
 
 namespace Gameplay.Player
 {
@@ -13,6 +13,9 @@ namespace Gameplay.Player
         private InfinityForwardMovement _infinityForwardMovement;
         private JumpLogic _jumpLogic;
         private HpLogic _hpLogic;
+        private ActivateBonusLogic _activateBonusLogic;
+        private bool _isDie;
+        private bool _isInitialized;
 
         private void Awake()
         {
@@ -28,9 +31,14 @@ namespace Gameplay.Player
 
         private void InitializeLogic()
         {
-            _infinityForwardMovement = new InfinityForwardMovement(_playerInfo.DefaultMoveSpeed, _playerInfo.Rigidbody, transform, _playerInfo.Animator);
-            _jumpLogic = new JumpLogic(_playerInfo.JumpLogicInfo, _playerInfo.Rigidbody, _playerInfo.Animator);
-            _hpLogic = new HpLogic(this, _playerInfo.MaxHp, _playerInfo.RemoveHpParticle);
+            if (_isInitialized == false)
+            {
+                _isInitialized = true;
+                _infinityForwardMovement = new InfinityForwardMovement(_playerInfo.MovementInfo, _playerInfo.Rigidbody, transform, _playerInfo.Animator);
+                _jumpLogic = new JumpLogic(_playerInfo.JumpLogicInfo, _playerInfo.Rigidbody, _playerInfo.Animator);
+                _hpLogic = new HpLogic(_playerInfo.HpLogicInfo, this);
+                _activateBonusLogic = new ActivateBonusLogic(this);
+            }
 
             EnterLogic();
         }
@@ -51,34 +59,56 @@ namespace Gameplay.Player
             transform.rotation = targetRotation.rotation;
         }
         
-        public void ChangeSpeed(float speed, float time) => 
-            _infinityForwardMovement.ChangeSpeed(speed, time);
+        public void ChangeSpeed(float speed, float time, bool smoothDecrease) => 
+            _infinityForwardMovement.ChangeSpeed(speed, time, smoothDecrease);
 
         public void ChangeHp(int value, bool playRemoveParticle) => 
             _hpLogic.ChangeHp(value, playRemoveParticle);
+        
+        public void SetInvulnerability(float activeTime) => 
+            _hpLogic.SetInvulnerability(activeTime);
 
         public void Die()
         {
-            _levelController.PlayerDie();
+            _isDie = true;
             ExitLogic();
         }
-
-        private void ExitLogic()
+        
+        public void EndGame()
         {
-            _infinityForwardMovement.Exit();
-            _jumpLogic.Exit();
-            _hpLogic.Exit();
+            ExitLogic();
+        }
+        
+        public void DamageAndMoveToNextBlock(int damage, bool playDamageParticle)
+        {
+            ChangeHp(damage, playDamageParticle);
+            SetPosition(_levelController.GetNextBlockFromPlayer());
         }
 
-        public void Fell(int damage, bool playDamageParticle)
+        public void Respawn()
         {
-             ChangeHp(damage, playDamageParticle);
-             SetPosition(_levelController.GetNextBlockFromPlayer());
+            _isDie = false;
+            SetPosition(_levelController.GetNextBlockFromPlayer());
+            EnterLogic();
+            _infinityForwardMovement.ChangeSpeed(_playerInfo.MovementInfo.ReviveMoveSpeed, _playerInfo.MovementInfo.ReviveSpeedChangeTime, true);
         }
 
         private void SetPosition(Vector3 position)
         {
             transform.position = position;
+        }
+
+        public void ApplyBonus(Bonus bonus)
+        {
+           _activateBonusLogic.ApplyBonus(bonus);
+        }
+        
+        private void ExitLogic()
+        {
+            _levelController.EndGame(!_isDie);
+            _infinityForwardMovement.Exit();
+            _jumpLogic.Exit();
+            _hpLogic.Exit();
         }
     }
 }

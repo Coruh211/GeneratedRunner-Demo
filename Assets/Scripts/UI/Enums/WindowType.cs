@@ -6,6 +6,7 @@
         LoadWindow,
         MainMenuWindow,
         GameWindow,
-        EndGameWindow
+        EndGameWinWindow,
+        EndGameLoseWindow
     }
 }
