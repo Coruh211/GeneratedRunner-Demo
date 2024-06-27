@@ -32,26 +32,28 @@ namespace Gameplay.Player.Logic
             SetText(_currentHp);
         }
         
-        public void ChangeHp(int value, bool playRemoveParticle)
+        public void Damage(int value)
         {
-            if (value < 0 && _canTakeDamage == false)
+            if (_canTakeDamage == false)
             {
                 return;
             }
             
-            _currentHp += value;
-
-            if (playRemoveParticle)
-            {
-                _removeHpParticle.Play();
-            }
+            _currentHp -= value;
+            _removeHpParticle.Play();
             
             if (_currentHp <= 0)
             {
+                _currentHp = 0;
                 _holdHpObj.Die();
-                SetText(0);
-                return;
             }
+            
+            SetText(_currentHp);
+        }
+        
+        public void Heal(int value)
+        {
+            _currentHp += value;
             
             if (_currentHp > _maxHp)
             {

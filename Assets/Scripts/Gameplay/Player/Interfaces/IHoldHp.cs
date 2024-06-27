@@ -2,8 +2,9 @@
 {
     public interface IHoldHp
     {
-        void ChangeHp(int value, bool playRemoveParticle);
+        public void Damage(int value);
+        public void Heal(int value);
         public void SetInvulnerability(float activeTime);
-        void Die();
+        public void Die();
     }
 }

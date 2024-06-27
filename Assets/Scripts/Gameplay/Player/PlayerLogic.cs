@@ -62,8 +62,11 @@ namespace Gameplay.Player
         public void ChangeSpeed(float speed, float time, bool smoothDecrease) => 
             _infinityForwardMovement.ChangeSpeed(speed, time, smoothDecrease);
 
-        public void ChangeHp(int value, bool playRemoveParticle) => 
-            _hpLogic.ChangeHp(value, playRemoveParticle);
+        public void Damage(int value) => 
+            _hpLogic.Damage(value);
+        
+        public void Heal(int value) =>
+            _hpLogic.Heal(value);
         
         public void SetInvulnerability(float activeTime) => 
             _hpLogic.SetInvulnerability(activeTime);
@@ -77,9 +80,9 @@ namespace Gameplay.Player
         public void EndGame() => 
             ExitLogic();
 
-        public void DamageAndMoveToNextBlock(int damage, bool playDamageParticle)
+        public void DamageAndMoveToNextBlock(int damage)
         {
-            ChangeHp(damage, playDamageParticle);
+            Damage(damage);
             SetPosition(_levelController.GetNextBlockFromPlayer());
         }
 

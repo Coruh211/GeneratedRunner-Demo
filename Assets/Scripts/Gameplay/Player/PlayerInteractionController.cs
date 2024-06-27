@@ -28,13 +28,13 @@ namespace Gameplay.Player
             }
             else if (other.CompareTag("DamageTrigger"))
             {
-                int damage = other.GetComponent<DamageTrigger>().Damage * -1;
-                playerLogic.ChangeHp(damage, true);
+                int damage = other.GetComponent<DamageTrigger>().Damage;
+                playerLogic.Damage(damage);
             }
             else if (other.CompareTag("KillBox"))
             {
-                int damage = other.GetComponent<DamageTrigger>().Damage * -1;
-                playerLogic.DamageAndMoveToNextBlock(damage, true);
+                int damage = other.GetComponent<DamageTrigger>().Damage;
+                playerLogic.DamageAndMoveToNextBlock(damage);
             }
             else if(other.CompareTag("Bonus"))
             {

@@ -23,15 +23,15 @@ namespace Gameplay.Player.Logic
             {
                 case BonusType.SpeedUp:
                     SpeedUpBonus speedUpBonus = bonus as SpeedUpBonus;
-                    _playerLogic.ChangeSpeed(speedUpBonus!.NewSpeed, speedUpBonus.ActiveTime, false);
+                    _playerLogic.ChangeSpeed(speedUpBonus.NewSpeed, speedUpBonus.ActiveTime, false);
                     break;
                 case BonusType.Heal:
                     HealBonus healBonus = bonus as HealBonus;
-                    _playerLogic.ChangeHp(healBonus!.HealValue, false);
+                    _playerLogic.Heal(healBonus.HealValue);
                     break;
                 case BonusType.Invulnerability:
                     InvulnerabilityBonus invulnerabilityBonus = bonus as InvulnerabilityBonus;
-                    _playerLogic.SetInvulnerability(invulnerabilityBonus!.ActiveTime);
+                    _playerLogic.SetInvulnerability(invulnerabilityBonus.ActiveTime);
                     break;
             }
         }
