@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Gameplay.Player
+namespace Gameplay.Player.Info
 {
     [Serializable]
     public class MovementInfo

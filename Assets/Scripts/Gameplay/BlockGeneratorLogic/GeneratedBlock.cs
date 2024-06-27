@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Gameplay.BlockGeneratorLogic.Enums;
+using UnityEngine;
 
 namespace Gameplay.BlockGeneratorLogic
 {

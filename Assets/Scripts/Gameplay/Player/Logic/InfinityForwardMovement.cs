@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Player.Info;
 using Gameplay.Player.Interfaces;
 using ImportedTools.StarterPack.CoreLogic.Tools.Ticker;
 using ITools.StarterPack.CoreLogic.Tools.Ticker.Interfaces;

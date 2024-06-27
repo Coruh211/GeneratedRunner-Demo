@@ -1,6 +1,6 @@
 ﻿using System;
+using Gameplay.Player.Info;
 using Gameplay.Player.Interfaces;
-using Gameplay.Player.SubPakage;
 using TMPro;
 using UniRx;
 using UnityEngine;

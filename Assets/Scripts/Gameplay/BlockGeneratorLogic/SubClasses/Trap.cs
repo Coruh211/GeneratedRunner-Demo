@@ -1,8 +1,6 @@
-﻿using Gameplay.BlockGeneratorLogic.Enums;
-using Sirenix.OdinInspector;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Gameplay.BlockGeneratorLogic
+namespace Gameplay.BlockGeneratorLogic.SubClasses
 {
     public class Trap : GeneratedBlock
     {

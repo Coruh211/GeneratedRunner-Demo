@@ -1,4 +1,4 @@
-﻿namespace Gameplay.BlockGeneratorLogic
+﻿namespace Gameplay.BlockGeneratorLogic.Enums
 {
     public enum BlockType
     {

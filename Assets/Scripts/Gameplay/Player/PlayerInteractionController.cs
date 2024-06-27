@@ -1,5 +1,6 @@
 ﻿using System;
 using Gameplay.BlockGeneratorLogic;
+using Gameplay.BlockGeneratorLogic.SubClasses;
 using Gameplay.BonusLogic;
 using Gameplay.TrapLogic;
 using UnityEditor;

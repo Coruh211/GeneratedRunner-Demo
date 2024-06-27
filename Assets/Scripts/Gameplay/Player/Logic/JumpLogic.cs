@@ -1,5 +1,5 @@
-﻿using Gameplay.Player.Interfaces;
-using Gameplay.Player.SubPakage;
+﻿using Gameplay.Player.Info;
+using Gameplay.Player.Interfaces;
 using ImportedTools.StarterPack.CoreLogic.Tools.Ticker;
 using ITools.StarterPack.CoreLogic.Tools.Ticker.Interfaces;
 using UnityEngine;

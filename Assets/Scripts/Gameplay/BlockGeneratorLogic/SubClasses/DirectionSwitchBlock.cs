@@ -1,7 +1,7 @@
 ﻿using Gameplay.BlockGeneratorLogic.Enums;
 using UnityEngine;
 
-namespace Gameplay.BlockGeneratorLogic
+namespace Gameplay.BlockGeneratorLogic.SubClasses
 {
     public class DirectionSwitchBlock : GeneratedBlock
     {

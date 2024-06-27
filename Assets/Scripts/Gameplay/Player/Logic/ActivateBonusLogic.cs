@@ -1,5 +1,6 @@
 ﻿using System;
 using Gameplay.BonusLogic;
+using Gameplay.BonusLogic.Enums;
 using Gameplay.BonusLogic.Info;
 using Gameplay.BonusLogic.SubClasses;
 using Gameplay.Player.Interfaces;

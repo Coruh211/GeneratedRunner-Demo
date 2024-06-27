@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Core;
 using Gameplay.BlockGeneratorLogic;
+using Gameplay.BlockGeneratorLogic.Enums;
+using Gameplay.BlockGeneratorLogic.SubClasses;
 using Lean.Pool;
 using UnityEngine;
 

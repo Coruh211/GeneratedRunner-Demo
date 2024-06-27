@@ -1,4 +1,4 @@
-﻿namespace Gameplay.BonusLogic.Info
+﻿namespace Gameplay.BonusLogic.Enums
 {
     public enum BonusType
     {

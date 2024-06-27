@@ -1,9 +1,8 @@
-﻿using Gameplay.BonusLogic;
-using Gameplay.BonusLogic.Info;
+﻿using Gameplay.BonusLogic.Info;
 using Lean.Pool;
 using UnityEngine;
 
-namespace Gameplay.BlockGeneratorLogic
+namespace Gameplay.BlockGeneratorLogic.SubClasses
 {
     public class DefaultGeneratedBlock: GeneratedBlock
     {

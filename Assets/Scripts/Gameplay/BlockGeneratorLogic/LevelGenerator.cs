@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay.BlockGeneratorLogic.Enums;
 using Gameplay.BlockGeneratorLogic.Info;
+using Gameplay.BlockGeneratorLogic.SubClasses;
 using Lean.Pool;
 using Sirenix.OdinInspector;
 using UnityEngine;

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Gameplay.Player.SubPakage
+namespace Gameplay.Player.Info
 {
     [Serializable]
     public class JumpLogicInfo

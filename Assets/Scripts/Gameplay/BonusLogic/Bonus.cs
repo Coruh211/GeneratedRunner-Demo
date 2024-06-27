@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.NetworkInformation;
+using Gameplay.BonusLogic.Enums;
 using Gameplay.BonusLogic.Info;
 using Lean.Pool;
 using UnityEngine;

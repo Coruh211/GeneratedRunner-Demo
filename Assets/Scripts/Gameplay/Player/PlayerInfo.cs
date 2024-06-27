@@ -1,4 +1,4 @@
-﻿using Gameplay.Player.SubPakage;
+﻿using Gameplay.Player.Info;
 using UnityEngine;
 
 namespace Gameplay.Player
