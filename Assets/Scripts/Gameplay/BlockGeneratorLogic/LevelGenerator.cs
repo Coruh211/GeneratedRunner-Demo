@@ -17,7 +17,7 @@ namespace Gameplay.BlockGeneratorLogic
         private List<GeneratedBlock> _activeBlocks = new List<GeneratedBlock>();
         private List<GeneratedBlock> _currentContainerBlocks = new List<GeneratedBlock>();
         private List<GameObject> _containers = new List<GameObject>();
-        private GenerationBlocksHolderSo _generationBlocksHolder;
+        private GenerationBlocksHolderSO _generationBlocksHolderSo;
         private GameObject _changeDirectionBlocksContainer;
         private Transform _currentParent;
         
@@ -28,25 +28,25 @@ namespace Gameplay.BlockGeneratorLogic
             {
                 SetDefaultState();
 
-                GlobalBlockInfo startBlockInfo = _generationBlocksHolder.StartBlockInfo;
+                GlobalBlockInfo startBlockInfo = _generationBlocksHolderSo.StartBlockInfo;
                 SpawnBlock(startBlockInfo);
             
                 for (int i = 0; i < levelLength; i++)
                 {
-                    GlobalBlockInfo blockInfo = _generationBlocksHolder.GetRandomBlock();
+                    GlobalBlockInfo blockInfo = _generationBlocksHolderSo.GetRandomBlock();
                     SpawnBlock(blockInfo);
                 }
             
-                GlobalBlockInfo endBlockInfo = _generationBlocksHolder.FinishBlockInfo;
+                GlobalBlockInfo endBlockInfo = _generationBlocksHolderSo.FinishBlockInfo;
                 SpawnBlock(endBlockInfo);
             });
         }
 
         private void LoadRecourses(Action OnLoadComplete = null)
         {
-            if (_generationBlocksHolder == null)
+            if (_generationBlocksHolderSo == null)
             {
-                _generationBlocksHolder = Resources.Load<GenerationBlocksHolderSo>(ResourcesPathHolder.GenerationBlocksHolder);
+                _generationBlocksHolderSo = Resources.Load<GenerationBlocksHolderSO>(ResourcesPathHolder.GenerationBlocksHolder);
             }
             if(_changeDirectionBlocksContainer == null)
             {
@@ -105,12 +105,12 @@ namespace Gameplay.BlockGeneratorLogic
             
             if(_currentContainerBlocks.Count == 0)
             {
-                position.z += _activeBlocks[^1].ModelTransform.localScale.z / 2 + spawnedBlock.ModelTransform.localScale.z / 2;
+                position.z += _activeBlocks[_activeBlocks.Count - 1].ModelTransform.localScale.z / 2 + spawnedBlock.ModelTransform.localScale.z / 2;
                 return position;
             }
 
-            position = _currentContainerBlocks[^1].transform.localPosition;
-            position.z += _currentContainerBlocks[^1].ModelTransform.localScale.z / 2 + spawnedBlock.ModelTransform.localScale.z / 2;
+            position = _currentContainerBlocks[_currentContainerBlocks.Count - 1].transform.localPosition;
+            position.z += _currentContainerBlocks[_currentContainerBlocks.Count - 1].ModelTransform.localScale.z / 2 + spawnedBlock.ModelTransform.localScale.z / 2;
             return position;
         }
 
@@ -118,7 +118,7 @@ namespace Gameplay.BlockGeneratorLogic
         {
             GameObject container = LeanPool.Spawn(_changeDirectionBlocksContainer, _currentParent);
             _currentParent = container.transform;
-            container.transform.position = _activeBlocks[^1].transform.position;
+            container.transform.position = _activeBlocks[_activeBlocks.Count - 1].transform.position;
             container.transform.localRotation = spawnedBlock.TargetDirection == Direction.Left ? Quaternion.Euler(0, -90, 0) : Quaternion.Euler(0, 90, 0);
             _containers.Add(container);
             

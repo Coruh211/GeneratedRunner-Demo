@@ -1,9 +1,5 @@
-﻿using System.Net.NetworkInformation;
-using Gameplay.Player.SubPakage;
-using Sirenix.Utilities;
-using Unity.VisualScripting;
+﻿using Gameplay.Player.SubPakage;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Gameplay.Player
 {

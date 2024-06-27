@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Gameplay.BlockGeneratorLogic.Info
 {
     [CreateAssetMenu(menuName = "Generation/Create GenerationBlocksHolderSo", fileName = "GenerationBlocksHolderSo", order = 0)]
-    public class GenerationBlocksHolderSo: ScriptableObject
+    public class GenerationBlocksHolderSO: ScriptableObject
     {
         public GlobalBlockInfo StartBlockInfo
         {

@@ -50,7 +50,6 @@ namespace Gameplay
         
         public void EndGame(bool isWin)
         {
-            Debug.Log(isWin ? "You win!" : "You lose!");
             _gameManager.EndLevel(isWin);
         }
         
