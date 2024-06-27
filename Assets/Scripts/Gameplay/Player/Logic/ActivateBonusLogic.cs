@@ -15,10 +15,7 @@ namespace Gameplay.Player.Logic
             _playerLogic = playerLogic;
         }
 
-        public void Enter()
-        {
-            throw new NotImplementedException();
-        }
+        public void Enter() { }
         
         public void ApplyBonus(Bonus bonus)
         {
@@ -39,9 +36,6 @@ namespace Gameplay.Player.Logic
             }
         }
         
-        public void Exit()
-        {
-            throw new NotImplementedException();
-        }
+        public void Exit() { }
     }
 }

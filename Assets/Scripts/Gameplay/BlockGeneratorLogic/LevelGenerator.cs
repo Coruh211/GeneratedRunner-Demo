@@ -14,9 +14,9 @@ namespace Gameplay.BlockGeneratorLogic
         [SerializeField] private float findBlockDistance = 2f;
         [SerializeField] private Transform blocksParent;
         
-        private List<GeneratedBlock> _activeBlocks = new List<GeneratedBlock>();
-        private List<GeneratedBlock> _currentContainerBlocks = new List<GeneratedBlock>();
-        private List<GameObject> _containers = new List<GameObject>();
+        private readonly List<GeneratedBlock> _activeBlocks = new List<GeneratedBlock>();
+        private readonly List<GeneratedBlock> _currentContainerBlocks = new List<GeneratedBlock>();
+        private readonly List<GameObject> _containers = new List<GameObject>();
         private GenerationBlocksHolderSO _generationBlocksHolderSo;
         private GameObject _changeDirectionBlocksContainer;
         private Transform _currentParent;

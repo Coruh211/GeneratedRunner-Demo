@@ -23,6 +23,7 @@ namespace Gameplay.BlockGeneratorLogic
             {
                 _bonusesHolder = Resources.Load<BonusesHolderSO>(ResourcesPathHolder.BonusesHolder);
             }
+            
             if (_currentBonus != null && _currentBonus.activeSelf == true)
             {
                 LeanPool.Despawn(_currentBonus);

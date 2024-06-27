@@ -14,8 +14,7 @@ namespace Gameplay.Player.Logic
         private readonly float _jumpForce;
         private int _currentJumpCount;
         private bool _isGrounded;
-
-
+        
         public JumpLogic(JumpLogicInfo jumpLogicInfo, Rigidbody rigidbody, AnimatorController animator)
         {
             _rigidbody = rigidbody;

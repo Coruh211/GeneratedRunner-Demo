@@ -23,26 +23,24 @@ namespace Core
         private void Awake()
         {
             _uiController = UIController.Instance;
-            
            LoadLevel();
         }
         
-        private void LoadLevel()
-        {
+        private void LoadLevel() => 
             LoadGameState(MainState);
-        }
         
+        private void MainState() => 
+            _uiController.ActivateWindow(WindowType.MainMenuWindow, true);
+        
+        public List<GeneratedBlock> GetPassedBlocks() => 
+            LevelController.Instance.GetPassedBlocks(_isWin);
+
         public void RestartLevel()
         {
             LevelController.Instance.PrepareLevel();
             _uiController.ActivateWindow(WindowType.MainMenuWindow);
         }
-
-        private void MainState()
-        {
-            _uiController.ActivateWindow(WindowType.MainMenuWindow, true);
-        }
-
+        
         private void LoadGameState(Action onSceneLoaded = null)
         {
             _uiController.ActivateWindow(WindowType.LoadWindow);
@@ -65,12 +63,7 @@ namespace Core
             _isWin = isWin;
             _uiController.ActivateWindow(isWin ? WindowType.EndGameWinWindow : WindowType.EndGameLoseWindow);
         }
-
-        public List<GeneratedBlock> GetPassedBlocks()
-        {
-            return LevelController.Instance.GetPassedBlocks(_isWin);
-        }
-
+        
         public void RevivePlayer()
         {
             LevelController.Instance.RevivePlayer();

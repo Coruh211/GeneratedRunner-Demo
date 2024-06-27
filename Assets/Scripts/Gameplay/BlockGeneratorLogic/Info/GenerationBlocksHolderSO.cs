@@ -27,7 +27,6 @@ namespace Gameplay.BlockGeneratorLogic.Info
         [SerializeField] private GlobalBlockInfo startBlockInfo;
         [SerializeField] private GlobalBlockInfo defaultBlockInfo;
         [SerializeField] private GlobalBlockInfo finishBlockInfo;
-        
         [SerializeField] private List<GlobalBlockInfo> Blocks;
         
         private GlobalBlockInfo _lastBlockInfo;

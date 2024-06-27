@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Core
 {
