@@ -25,7 +25,6 @@ namespace Gameplay.Player
         public void Initialize(LevelController levelController)
         {
             _levelController = levelController;
-            _playerInfo.Rigidbody.isKinematic = false;
             InitializeLogic();
         }
 
@@ -34,6 +33,7 @@ namespace Gameplay.Player
             if (_isInitialized == false)
             {
                 _isInitialized = true;
+                
                 _infinityForwardMovement = new InfinityForwardMovement(_playerInfo.MovementInfo, _playerInfo.Rigidbody, transform, _playerInfo.Animator);
                 _jumpLogic = new JumpLogic(_playerInfo.JumpLogicInfo, _playerInfo.Rigidbody, _playerInfo.Animator);
                 _hpLogic = new HpLogic(_playerInfo.HpLogicInfo, this);
@@ -65,11 +65,23 @@ namespace Gameplay.Player
         public void Damage(int value) => 
             _hpLogic.Damage(value);
         
+        public void DamageAndMoveToNextBlock(int damage)
+        {
+            Damage(damage);
+            SetPosition(_levelController.GetNextBlockFromPlayer());
+        }
+        
         public void Heal(int value) =>
             _hpLogic.Heal(value);
         
         public void SetInvulnerability(float activeTime) => 
             _hpLogic.SetInvulnerability(activeTime);
+        
+        private void SetPosition(Vector3 position) => 
+            transform.position = position;
+
+        public void ApplyBonus(Bonus bonus) => 
+            _activateBonusLogic.ApplyBonus(bonus);
 
         public void Die()
         {
@@ -79,13 +91,7 @@ namespace Gameplay.Player
         
         public void EndGame() => 
             ExitLogic();
-
-        public void DamageAndMoveToNextBlock(int damage)
-        {
-            Damage(damage);
-            SetPosition(_levelController.GetNextBlockFromPlayer());
-        }
-
+        
         public void Respawn()
         {
             _isDie = false;
@@ -93,13 +99,7 @@ namespace Gameplay.Player
             EnterLogic();
             _infinityForwardMovement.ChangeSpeed(_playerInfo.MovementInfo.ReviveMoveSpeed, _playerInfo.MovementInfo.ReviveSpeedChangeTime, true);
         }
-
-        private void SetPosition(Vector3 position) => 
-            transform.position = position;
-
-        public void ApplyBonus(Bonus bonus) => 
-            _activateBonusLogic.ApplyBonus(bonus);
-
+        
         private void ExitLogic()
         {
             _levelController.EndGame(!_isDie);
