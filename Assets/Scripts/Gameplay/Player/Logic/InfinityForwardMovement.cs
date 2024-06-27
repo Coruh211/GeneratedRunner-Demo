@@ -92,6 +92,7 @@ namespace Gameplay.Player.Logic
             _timer?.Dispose();
             _interval?.Dispose();
             _speed = _defaultSpeed;
+            _rigidbody.velocity = Vector3.zero;
         }
     }
 }
